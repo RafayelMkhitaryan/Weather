@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./App.css";
 
 const WEATHER_GRADIENTS = {
@@ -13,23 +13,38 @@ const WEATHER_GRADIENTS = {
 };
 
 const WEATHER_ICONS = {
-  "01d": "☀️", "01n": "🌙",
-  "02d": "⛅", "02n": "☁️",
-  "03d": "☁️", "03n": "☁️",
-  "04d": "☁️", "04n": "☁️",
-  "09d": "🌧️", "09n": "🌧️",
-  "10d": "🌦️", "10n": "🌧️",
-  "11d": "⛈️", "11n": "⛈️",
-  "13d": "❄️", "13n": "❄️",
-  "50d": "🌫️", "50n": "🌫️",
+  "01d": "☀️",
+  "01n": "🌙",
+  "02d": "⛅",
+  "02n": "☁️",
+  "03d": "☁️",
+  "03n": "☁️",
+  "04d": "☁️",
+  "04n": "☁️",
+  "09d": "🌧️",
+  "09n": "🌧️",
+  "10d": "🌦️",
+  "10n": "🌧️",
+  "11d": "⛈️",
+  "11n": "⛈️",
+  "13d": "❄️",
+  "13n": "❄️",
+  "50d": "🌫️",
+  "50n": "🌫️",
 };
 
-const DAYS_RU = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
-const MONTHS_RU = ["янв", "фев", "мар", "апр", "май", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"];
+const DATE_FORMATTER = new Intl.DateTimeFormat("en-GB", {
+  weekday: "short",
+  day: "numeric",
+  month: "short",
+});
+
+function parseForecastDate(dateStr) {
+  return new Date(`${dateStr}T12:00:00`);
+}
 
 function formatDate(dateStr) {
-  const d = new Date(dateStr);
-  return `${DAYS_RU[d.getDay()]}, ${d.getDate()} ${MONTHS_RU[d.getMonth()]}`;
+  return DATE_FORMATTER.format(parseForecastDate(dateStr));
 }
 
 function StatCard({ icon, label, value }) {
@@ -44,6 +59,7 @@ function StatCard({ icon, label, value }) {
 
 function ForecastCard({ day }) {
   const emoji = WEATHER_ICONS[day.icon] || "🌤️";
+
   return (
     <div className="forecast-card">
       <span className="forecast-day">{formatDate(day.date)}</span>
@@ -58,7 +74,7 @@ function ForecastCard({ day }) {
 }
 
 export default function App() {
-  const [city, setCity] = useState("Москва");
+  const [city, setCity] = useState("Moscow");
   const [input, setInput] = useState("");
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState([]);
@@ -67,28 +83,37 @@ export default function App() {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
-    const t = setInterval(() => setTime(new Date()), 1000);
-    return () => clearInterval(t);
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
   }, []);
 
   const fetchWeather = useCallback(async (cityName) => {
     setLoading(true);
     setError("");
+
     try {
-      const [wRes, fRes] = await Promise.all([
+      const [weatherResponse, forecastResponse] = await Promise.all([
         fetch(`/weather/current?city=${encodeURIComponent(cityName)}`),
         fetch(`/weather/forecast?city=${encodeURIComponent(cityName)}`),
       ]);
-      if (!wRes.ok) {
-        const err = await wRes.json();
-        throw new Error(err.detail || "Город не найден");
+
+      if (!weatherResponse.ok) {
+        const err = await weatherResponse.json();
+        throw new Error(err.detail || "City not found");
       }
-      const wData = await wRes.json();
-      const fData = await fRes.json();
-      setWeather(wData);
-      setForecast(fData.forecast || []);
-    } catch (e) {
-      setError(e.message);
+
+      if (!forecastResponse.ok) {
+        const err = await forecastResponse.json();
+        throw new Error(err.detail || "Forecast unavailable");
+      }
+
+      const weatherData = await weatherResponse.json();
+      const forecastData = await forecastResponse.json();
+
+      setWeather(weatherData);
+      setForecast(forecastData.forecast || []);
+    } catch (err) {
+      setError(err.message);
       setWeather(null);
       setForecast([]);
     } finally {
@@ -100,45 +125,43 @@ export default function App() {
     fetchWeather(city);
   }, [city, fetchWeather]);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
+  const handleSearch = (event) => {
+    event.preventDefault();
     if (input.trim()) {
       setCity(input.trim());
       setInput("");
     }
   };
 
-  const gradient =
-    weather ? (WEATHER_GRADIENTS[weather.weather_main] || WEATHER_GRADIENTS.default)
+  const gradient = weather
+    ? WEATHER_GRADIENTS[weather.weather_main] || WEATHER_GRADIENTS.default
     : WEATHER_GRADIENTS.default;
+  const emoji = weather ? WEATHER_ICONS[weather.icon] || "🌤️" : "🌤️";
 
-  const emoji = weather ? (WEATHER_ICONS[weather.icon] || "🌤️") : "🌤️";
-
-  const padTime = (n) => String(n).padStart(2, "0");
+  const padTime = (value) => String(value).padStart(2, "0");
   const timeStr = `${padTime(time.getHours())}:${padTime(time.getMinutes())}:${padTime(time.getSeconds())}`;
-  const dateStr = `${DAYS_RU[time.getDay()]}, ${time.getDate()} ${MONTHS_RU[time.getMonth()]} ${time.getFullYear()}`;
+  const dateStr = `${DATE_FORMATTER.format(time)} ${time.getFullYear()}`;
 
   return (
     <div className="app" style={{ background: gradient }}>
-      {/* Ambient blobs */}
       <div className="blob blob-1" />
       <div className="blob blob-2" />
       <div className="blob blob-3" />
 
       <div className="container">
-        {/* Search */}
         <form className="search-form" onSubmit={handleSearch}>
           <input
             className="search-input"
             type="text"
-            placeholder="Введите город..."
+            placeholder="Enter a city..."
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(event) => setInput(event.target.value)}
           />
-          <button className="search-btn" type="submit">🔍</button>
+          <button className="search-btn" type="submit">
+            🔍
+          </button>
         </form>
 
-        {/* Clock */}
         <div className="clock-bar">
           <span className="clock-time">{timeStr}</span>
           <span className="clock-date">{dateStr}</span>
@@ -147,7 +170,7 @@ export default function App() {
         {loading && (
           <div className="glass-card center">
             <div className="spinner" />
-            <p className="loading-text">Загружаем погоду...</p>
+            <p className="loading-text">Loading weather...</p>
           </div>
         )}
 
@@ -160,7 +183,6 @@ export default function App() {
 
         {weather && !loading && (
           <>
-            {/* Main weather card */}
             <div className="glass-card main-card">
               <div className="main-top">
                 <div className="city-info">
@@ -173,24 +195,22 @@ export default function App() {
               <div className="temp-row">
                 <span className="temp-big">{weather.temp}°</span>
                 <div className="temp-meta">
-                  <span className="feels-like">Ощущается как {weather.feels_like}°</span>
+                  <span className="feels-like">Feels like {weather.feels_like}°</span>
                   <span className="description">{weather.description}</span>
                 </div>
               </div>
             </div>
 
-            {/* Stats */}
             <div className="stats-grid">
-              <StatCard icon="💧" label="Влажность" value={`${weather.humidity}%`} />
-              <StatCard icon="💨" label="Ветер" value={`${weather.wind_speed} м/с`} />
-              <StatCard icon="👁️" label="Видимость" value={`${weather.visibility} км`} />
-              <StatCard icon="📊" label="Давление" value={`${weather.pressure} гПа`} />
+              <StatCard icon="💧" label="Humidity" value={`${weather.humidity}%`} />
+              <StatCard icon="💨" label="Wind" value={`${weather.wind_speed} m/s`} />
+              <StatCard icon="👁️" label="Visibility" value={`${weather.visibility} km`} />
+              <StatCard icon="📊" label="Pressure" value={`${weather.pressure} hPa`} />
             </div>
 
-            {/* Forecast */}
             {forecast.length > 0 && (
               <div className="glass-card forecast-section">
-                <h2 className="section-title">Прогноз на 5 дней</h2>
+                <h2 className="section-title">5-Day Forecast</h2>
                 <div className="forecast-list">
                   {forecast.map((day) => (
                     <ForecastCard key={day.date} day={day} />

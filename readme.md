@@ -1,89 +1,65 @@
-# 🌤️ Weather App
+# Weather App
 
-Красивое приложение погоды — FastAPI бэкенд + React фронтенд с glassmorphism дизайном.
+A weather application with a FastAPI backend and a React frontend. It uses Open-Meteo for geocoding and forecast data and displays the results in a glassmorphism-style UI.
 
----
+## Structure
 
-## 📁 Структура
-
-```
+```text
 weather/
-├── backend/
-│   ├── main.py
-│   ├── requirements.txt
-│   └── .env.example
-└── frontend/
-    ├── public/index.html
-    ├── src/
-    │   ├── App.js
-    │   ├── App.css
-    │   └── index.js
-    └── package.json
+|-- backend/
+|   |-- main.py
+|   `-- requirements.txt
+`-- frontend/
+    |-- public/index.html
+    |-- src/
+    |   |-- App.css
+    |   |-- App.js
+    |   `-- index.js
+    |-- package.json
+    `-- package-lock.json
 ```
 
----
+## Setup
 
-## 🚀 Установка и запуск
+This project uses Open-Meteo. No API key or `.env` file is required.
 
-### 1. Получи API ключ
-Зарегистрируйся на [openweathermap.org](https://openweathermap.org/api) и получи бесплатный ключ.
-
-### 2. Бэкенд (FastAPI)
+### Backend
 
 ```bash
 cd backend
 
-# Создай виртуальное окружение
 python -m venv venv
-source venv/bin/activate       # Linux/Mac
-venv\Scripts\activate          # Windows
-
-# Установи зависимости
+venv\Scripts\activate
 pip install -r requirements.txt
-
-# Создай .env файл
-cp .env.example .env
-# Открой .env и вставь твой ключ:
-# OPENWEATHER_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-# Запусти сервер
 uvicorn main:app --reload --port 8000
 ```
 
-Бэкенд запустится на: http://localhost:8000
-Документация API: http://localhost:8000/docs
+Backend: http://localhost:8000
+API docs: http://localhost:8000/docs
 
-### 3. Фронтенд (React)
+### Frontend
 
 ```bash
 cd frontend
-
-# Установи зависимости
 npm install
-
-# Запусти
 npm start
 ```
 
-Фронтенд откроется на: http://localhost:3000
+Frontend: http://localhost:3000
 
----
+## API Endpoints
 
-## 🔌 API Endpoints
+| Method | URL | Description |
+| --- | --- | --- |
+| GET | `/weather/current?city=Moscow` | Current weather |
+| GET | `/weather/forecast?city=Moscow` | 5-day forecast |
+| GET | `/health` | Health check |
 
-| Метод | URL | Описание |
-|-------|-----|----------|
-| GET | `/weather/current?city=Москва` | Текущая погода |
-| GET | `/weather/forecast?city=Москва` | Прогноз на 5 дней |
-| GET | `/health` | Проверка работы сервера |
+## Features
 
----
-
-## ✨ Функции
-
-- 🌡️ Текущая температура и ощущаемая
-- 💧 Влажность, ветер, видимость, давление
-- 📅 Прогноз на 5 дней
-- 🎨 Фон меняется в зависимости от погоды
-- 🕐 Часы в реальном времени
-- 🔍 Поиск любого города мира
+- Current temperature and feels-like temperature
+- Humidity, wind, visibility, and pressure
+- 5-day forecast
+- Weather-based dynamic background
+- Live clock
+- City search
