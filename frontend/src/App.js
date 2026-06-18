@@ -6,16 +6,13 @@ const WEATHER_TINTS = {
     "linear-gradient(140deg, rgba(8, 18, 39, 0.18) 0%, rgba(15, 54, 104, 0.24) 55%, rgba(255, 184, 77, 0.1) 100%)",
   Clouds:
     "linear-gradient(140deg, rgba(9, 15, 28, 0.28) 0%, rgba(22, 38, 67, 0.24) 55%, rgba(80, 118, 170, 0.16) 100%)",
-  Rain:
-    "linear-gradient(140deg, rgba(3, 11, 24, 0.42) 0%, rgba(10, 28, 54, 0.34) 55%, rgba(26, 92, 160, 0.18) 100%)",
+  Rain: "linear-gradient(140deg, rgba(3, 11, 24, 0.42) 0%, rgba(10, 28, 54, 0.34) 55%, rgba(26, 92, 160, 0.18) 100%)",
   Drizzle:
     "linear-gradient(140deg, rgba(3, 11, 24, 0.4) 0%, rgba(10, 28, 54, 0.32) 55%, rgba(26, 92, 160, 0.16) 100%)",
   Thunderstorm:
     "linear-gradient(140deg, rgba(4, 5, 17, 0.52) 0%, rgba(19, 24, 51, 0.38) 55%, rgba(89, 66, 160, 0.18) 100%)",
-  Snow:
-    "linear-gradient(140deg, rgba(9, 18, 33, 0.26) 0%, rgba(22, 44, 78, 0.22) 55%, rgba(179, 218, 255, 0.16) 100%)",
-  Mist:
-    "linear-gradient(140deg, rgba(9, 15, 28, 0.38) 0%, rgba(22, 38, 67, 0.3) 55%, rgba(110, 127, 161, 0.16) 100%)",
+  Snow: "linear-gradient(140deg, rgba(9, 18, 33, 0.26) 0%, rgba(22, 44, 78, 0.22) 55%, rgba(179, 218, 255, 0.16) 100%)",
+  Mist: "linear-gradient(140deg, rgba(9, 15, 28, 0.38) 0%, rgba(22, 38, 67, 0.3) 55%, rgba(110, 127, 161, 0.16) 100%)",
   default:
     "linear-gradient(140deg, rgba(8, 18, 39, 0.24) 0%, rgba(15, 54, 104, 0.26) 55%, rgba(255, 184, 77, 0.1) 100%)",
 };
@@ -154,14 +151,34 @@ export default function App() {
   const weatherTint = weather
     ? WEATHER_TINTS[weather.weather_main] || WEATHER_TINTS.default
     : WEATHER_TINTS.default;
-  const emoji = weather ? WEATHER_ICONS[weather.icon] || UI_ICONS.fallbackWeather : UI_ICONS.fallbackWeather;
+  const emoji = weather
+    ? WEATHER_ICONS[weather.icon] || UI_ICONS.fallbackWeather
+    : UI_ICONS.fallbackWeather;
 
   const padTime = (value) => String(value).padStart(2, "0");
   const timeStr = `${padTime(time.getHours())}:${padTime(time.getMinutes())}:${padTime(time.getSeconds())}`;
   const dateStr = `${DATE_FORMATTER.format(time)} ${time.getFullYear()}`;
 
   return (
+<>
+
     <div className="app" style={{ "--weather-tint": weatherTint }}>
+       <video
+              width="200px"
+              height="200px"
+              loop
+              muted
+              playsInline
+              autoPlay
+              id="myVideo"
+              poster="https://static-assets.mapbox.com/www/video/custom%20Earth%203.2%20first%20frame_00000.png"
+            >
+              <source
+                src="https://static-assets.mapbox.com/www/video/custom%20Earth%203.2%20converted.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
       <div className="blob blob-1" />
       <div className="blob blob-2" />
       <div className="blob blob-3" />
@@ -213,17 +230,35 @@ export default function App() {
               <div className="temp-row">
                 <span className="temp-big">{weather.temp}°</span>
                 <div className="temp-meta">
-                  <span className="feels-like">Feels like {weather.feels_like}°</span>
+                  <span className="feels-like">
+                    Feels like {weather.feels_like}°
+                  </span>
                   <span className="description">{weather.description}</span>
                 </div>
               </div>
             </div>
 
             <div className="stats-grid">
-              <StatCard icon={UI_ICONS.humidity} label="Humidity" value={`${weather.humidity}%`} />
-              <StatCard icon={UI_ICONS.wind} label="Wind" value={`${weather.wind_speed} m/s`} />
-              <StatCard icon={UI_ICONS.visibility} label="Visibility" value={`${weather.visibility} km`} />
-              <StatCard icon={UI_ICONS.pressure} label="Pressure" value={`${weather.pressure} hPa`} />
+              <StatCard
+                icon={UI_ICONS.humidity}
+                label="Humidity"
+                value={`${weather.humidity}%`}
+              />
+              <StatCard
+                icon={UI_ICONS.wind}
+                label="Wind"
+                value={`${weather.wind_speed} m/s`}
+              />
+              <StatCard
+                icon={UI_ICONS.visibility}
+                label="Visibility"
+                value={`${weather.visibility} km`}
+              />
+              <StatCard
+                icon={UI_ICONS.pressure}
+                label="Pressure"
+                value={`${weather.pressure} hPa`}
+              />
             </div>
 
             {forecast.length > 0 && (
@@ -240,5 +275,6 @@ export default function App() {
         )}
       </div>
     </div>
+  </>
   );
 }

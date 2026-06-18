@@ -40,13 +40,6 @@ body {
   position: fixed;
   inset: 0;
   z-index: 0;
-  background-image:
-    linear-gradient(180deg, rgba(1, 4, 13, 0.1) 0%, rgba(1, 4, 13, 0.64) 100%),
-    var(--weather-tint),
-    url("./assets/earth-orbit-bg.svg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
   transform: scale(1.02);
 }
 
@@ -56,12 +49,22 @@ body {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background:
+  /* background:
     radial-gradient(circle at 13% 33%, rgba(255, 216, 139, 0.24), transparent 14%),
     radial-gradient(circle at 74% 74%, rgba(24, 102, 189, 0.28), transparent 28%),
-    linear-gradient(180deg, rgba(1, 4, 13, 0.12) 0%, rgba(1, 4, 13, 0.38) 100%);
+    linear-gradient(180deg, rgba(1, 4, 13, 0.12) 0%, rgba(1, 4, 13, 0.38) 100%); */
 }
 
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -9999;
+  /* width: auto; */
+}
 .container {
   width: min(760px, calc(100% - 32px));
   margin: 0 auto;
@@ -120,9 +123,9 @@ body {
 }
 
 .glass-card {
-  background:
+  /* background:
     linear-gradient(135deg, rgba(18, 33, 73, 0.62), rgba(24, 48, 94, 0.36)),
-    rgba(8, 14, 28, 0.36);
+    rgba(8, 14, 28, 0.36); */
   backdrop-filter: blur(26px) saturate(1.35);
   -webkit-backdrop-filter: blur(26px) saturate(1.35);
   border: 1px solid rgba(146, 180, 255, 0.16);
@@ -343,9 +346,9 @@ body {
   flex-direction: column;
   justify-content: center;
   gap: 8px;
-  background:
+  /* background:
     linear-gradient(135deg, rgba(18, 33, 73, 0.54), rgba(16, 31, 62, 0.32)),
-    rgba(6, 12, 24, 0.34);
+    rgba(6, 12, 24, 0.34); */
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border: 1px solid rgba(146, 180, 255, 0.12);
@@ -360,9 +363,9 @@ body {
 .stat-card:hover {
   transform: translateY(-2px);
   border-color: rgba(188, 214, 255, 0.18);
-  background:
+  /* background:
     linear-gradient(135deg, rgba(22, 41, 88, 0.62), rgba(20, 39, 79, 0.38)),
-    rgba(7, 13, 27, 0.38);
+    rgba(7, 13, 27, 0.38); */
 }
 
 .stat-icon {
