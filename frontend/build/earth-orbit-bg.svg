@@ -1,0 +1,155 @@
+<svg width="1600" height="1200" viewBox="0 0 1600 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="space" x1="196" y1="138" x2="1419" y2="1046" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#040712"/>
+      <stop offset="0.42" stop-color="#09101E"/>
+      <stop offset="1" stop-color="#0C1832"/>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(196 430) rotate(90) scale(182 182)">
+      <stop offset="0" stop-color="#FFF5C8"/>
+      <stop offset="0.32" stop-color="#FFD68C" stop-opacity="0.86"/>
+      <stop offset="0.64" stop-color="#FF9C46" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#FF9C46" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="atmosphere" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(750 462) rotate(90) scale(88 610)">
+      <stop offset="0" stop-color="#D6EEFF" stop-opacity="0.96"/>
+      <stop offset="0.46" stop-color="#6AA8FF" stop-opacity="0.58"/>
+      <stop offset="1" stop-color="#143A88" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="earthSurface" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(708 1062) rotate(-48) scale(914 1018)">
+      <stop offset="0" stop-color="#5D6884"/>
+      <stop offset="0.28" stop-color="#283453"/>
+      <stop offset="0.54" stop-color="#0F1731"/>
+      <stop offset="0.84" stop-color="#060B1B"/>
+      <stop offset="1" stop-color="#01040D"/>
+    </radialGradient>
+    <radialGradient id="cityGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(978 648) rotate(90) scale(312 564)">
+      <stop offset="0" stop-color="#FFD488" stop-opacity="0.98"/>
+      <stop offset="0.58" stop-color="#FFB048" stop-opacity="0.54"/>
+      <stop offset="1" stop-color="#FF8E2B" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softBlur" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="9"/>
+    </filter>
+    <clipPath id="earthClip">
+      <circle cx="770" cy="1164" r="730"/>
+    </clipPath>
+  </defs>
+
+  <rect width="1600" height="1200" fill="url(#space)"/>
+
+  <g opacity="0.92">
+    <circle cx="86" cy="68" r="1.2" fill="#F5F8FF"/>
+    <circle cx="126" cy="154" r="1.8" fill="#D7E5FF"/>
+    <circle cx="178" cy="246" r="1.1" fill="#FFFFFF"/>
+    <circle cx="244" cy="114" r="1.4" fill="#EAF1FF"/>
+    <circle cx="296" cy="334" r="1.7" fill="#CCD9FF"/>
+    <circle cx="362" cy="76" r="1.2" fill="#FFFFFF"/>
+    <circle cx="436" cy="178" r="1.6" fill="#EAF1FF"/>
+    <circle cx="488" cy="286" r="1.1" fill="#F5F8FF"/>
+    <circle cx="548" cy="122" r="2.1" fill="#FFFFFF"/>
+    <circle cx="602" cy="212" r="1.3" fill="#CFDEFF"/>
+    <circle cx="668" cy="58" r="1.6" fill="#F5F8FF"/>
+    <circle cx="728" cy="144" r="1.2" fill="#FFFFFF"/>
+    <circle cx="782" cy="214" r="1.7" fill="#D7E5FF"/>
+    <circle cx="860" cy="82" r="1.2" fill="#FFFFFF"/>
+    <circle cx="918" cy="192" r="1.5" fill="#EAF1FF"/>
+    <circle cx="986" cy="124" r="1.4" fill="#FFFFFF"/>
+    <circle cx="1036" cy="264" r="2.2" fill="#D7E5FF"/>
+    <circle cx="1108" cy="96" r="1.3" fill="#FFFFFF"/>
+    <circle cx="1176" cy="186" r="1.1" fill="#F5F8FF"/>
+    <circle cx="1238" cy="72" r="2" fill="#FFFFFF"/>
+    <circle cx="1298" cy="222" r="1.2" fill="#D7E5FF"/>
+    <circle cx="1368" cy="148" r="1.6" fill="#FFFFFF"/>
+    <circle cx="1432" cy="286" r="1.4" fill="#EAF1FF"/>
+    <circle cx="1514" cy="114" r="1.2" fill="#FFFFFF"/>
+    <circle cx="1454" cy="54" r="1.4" fill="#F5F8FF"/>
+    <circle cx="1334" cy="332" r="1.9" fill="#FFFFFF"/>
+    <circle cx="1204" cy="302" r="1.3" fill="#EAF1FF"/>
+    <circle cx="1048" cy="356" r="1.4" fill="#FFFFFF"/>
+    <circle cx="864" cy="326" r="1.1" fill="#D7E5FF"/>
+    <circle cx="706" cy="302" r="1.5" fill="#FFFFFF"/>
+    <circle cx="560" cy="362" r="1.3" fill="#F5F8FF"/>
+    <circle cx="396" cy="298" r="1.1" fill="#FFFFFF"/>
+    <circle cx="232" cy="364" r="1.7" fill="#D7E5FF"/>
+    <circle cx="118" cy="308" r="1.2" fill="#FFFFFF"/>
+  </g>
+
+  <circle cx="186" cy="436" r="198" fill="url(#sunGlow)"/>
+  <rect x="72" y="448" width="186" height="6" rx="3" fill="#FFD48C" fill-opacity="0.34"/>
+  <rect x="104" y="432" width="72" height="3" rx="1.5" fill="#FFE2AE" fill-opacity="0.26"/>
+
+  <g clip-path="url(#earthClip)">
+    <circle cx="770" cy="1164" r="730" fill="url(#earthSurface)"/>
+
+    <path d="M189 793C286 754 356 734 438 735C519 736 576 748 665 776C742 801 799 812 872 807C945 802 1009 774 1079 758C1174 736 1265 736 1355 776L1439 970L156 1018L189 793Z" fill="#16213F" fill-opacity="0.84"/>
+    <path d="M352 682C435 641 504 629 580 642C655 655 708 685 772 713C839 742 910 748 985 731C1061 714 1119 673 1199 650C1298 621 1391 627 1484 690L1530 831L314 884L352 682Z" fill="#1E2A4C" fill-opacity="0.72"/>
+    <path d="M228 893C313 842 405 829 500 851C598 874 664 922 744 951C825 980 918 989 1009 973C1102 957 1176 915 1268 890C1360 866 1440 872 1512 907L1540 1060L191 1108L228 893Z" fill="#0B1328" fill-opacity="0.78"/>
+
+    <g filter="url(#softBlur)">
+      <ellipse cx="976" cy="706" rx="328" ry="154" fill="url(#cityGlow)" fill-opacity="0.66"/>
+      <ellipse cx="784" cy="754" rx="274" ry="122" fill="url(#cityGlow)" fill-opacity="0.26"/>
+    </g>
+
+    <g fill="#FFD58C">
+      <circle cx="598" cy="756" r="3.6"/>
+      <circle cx="632" cy="724" r="4.2"/>
+      <circle cx="666" cy="742" r="3.2"/>
+      <circle cx="698" cy="706" r="2.8"/>
+      <circle cx="722" cy="732" r="3"/>
+      <circle cx="754" cy="686" r="4.4"/>
+      <circle cx="776" cy="718" r="2.8"/>
+      <circle cx="812" cy="690" r="5"/>
+      <circle cx="836" cy="732" r="3.1"/>
+      <circle cx="872" cy="702" r="4.8"/>
+      <circle cx="902" cy="668" r="3.4"/>
+      <circle cx="928" cy="708" r="3.1"/>
+      <circle cx="952" cy="680" r="5.6"/>
+      <circle cx="986" cy="654" r="4"/>
+      <circle cx="1012" cy="686" r="3.4"/>
+      <circle cx="1042" cy="664" r="5"/>
+      <circle cx="1076" cy="632" r="3.1"/>
+      <circle cx="1106" cy="676" r="4.2"/>
+      <circle cx="1134" cy="648" r="2.8"/>
+      <circle cx="1166" cy="616" r="5.8"/>
+      <circle cx="1202" cy="666" r="4.2"/>
+      <circle cx="1238" cy="640" r="3.3"/>
+      <circle cx="1270" cy="608" r="4.2"/>
+      <circle cx="1302" cy="654" r="3"/>
+      <circle cx="1334" cy="628" r="4"/>
+      <circle cx="1360" cy="594" r="2.8"/>
+      <circle cx="952" cy="740" r="3.2"/>
+      <circle cx="986" cy="718" r="2.8"/>
+      <circle cx="1020" cy="738" r="3.1"/>
+      <circle cx="1052" cy="714" r="2.6"/>
+      <circle cx="1090" cy="734" r="3.4"/>
+      <circle cx="1128" cy="710" r="2.6"/>
+      <circle cx="1162" cy="730" r="3.1"/>
+      <circle cx="1194" cy="704" r="2.6"/>
+      <circle cx="1226" cy="726" r="3.1"/>
+      <circle cx="1260" cy="700" r="2.6"/>
+      <circle cx="1296" cy="720" r="3.2"/>
+      <circle cx="1324" cy="694" r="2.4"/>
+      <circle cx="1360" cy="712" r="2.8"/>
+      <circle cx="702" cy="788" r="2.6"/>
+      <circle cx="734" cy="768" r="2.4"/>
+      <circle cx="760" cy="796" r="2.4"/>
+      <circle cx="790" cy="770" r="2.8"/>
+      <circle cx="822" cy="804" r="2.3"/>
+      <circle cx="852" cy="776" r="2.7"/>
+      <circle cx="884" cy="808" r="2.2"/>
+      <circle cx="912" cy="782" r="2.4"/>
+    </g>
+
+    <g fill="#FFF1CC" fill-opacity="0.84">
+      <circle cx="812" cy="690" r="8.8"/>
+      <circle cx="952" cy="680" r="7.6"/>
+      <circle cx="1042" cy="664" r="6.8"/>
+      <circle cx="1166" cy="616" r="8.2"/>
+      <circle cx="632" cy="724" r="6.6"/>
+    </g>
+  </g>
+
+  <ellipse cx="770" cy="470" rx="612" ry="58" fill="url(#atmosphere)"/>
+  <ellipse cx="772" cy="486" rx="584" ry="24" fill="#A9CFFF" fill-opacity="0.18"/>
+</svg>

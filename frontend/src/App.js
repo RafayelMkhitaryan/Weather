@@ -1,36 +1,54 @@
 import React, { useCallback, useEffect, useState } from "react";
 import "./App.css";
 
-const WEATHER_GRADIENTS = {
-  Clear: "linear-gradient(135deg, #1a1a4e 0%, #16213e 40%, #0f3460 70%, #533483 100%)",
-  Clouds: "linear-gradient(135deg, #1c1c2e 0%, #2d2d44 40%, #3a3a5c 70%, #4a4a6a 100%)",
-  Rain: "linear-gradient(135deg, #0d1b2a 0%, #1b2838 40%, #1e3a5f 70%, #243b55 100%)",
-  Drizzle: "linear-gradient(135deg, #0d1b2a 0%, #1b2838 40%, #1e3a5f 70%, #243b55 100%)",
-  Thunderstorm: "linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 40%, #16213e 70%, #2d1b4e 100%)",
-  Snow: "linear-gradient(135deg, #1a2a4a 0%, #1e3a5f 40%, #2d4a6e 70%, #3a5a80 100%)",
-  Mist: "linear-gradient(135deg, #1a1a2e 0%, #2a2a42 40%, #333355 70%, #3d3d66 100%)",
-  default: "linear-gradient(135deg, #1a1a4e 0%, #16213e 40%, #0f3460 70%, #533483 100%)",
+const WEATHER_TINTS = {
+  Clear:
+    "linear-gradient(140deg, rgba(8, 18, 39, 0.18) 0%, rgba(15, 54, 104, 0.24) 55%, rgba(255, 184, 77, 0.1) 100%)",
+  Clouds:
+    "linear-gradient(140deg, rgba(9, 15, 28, 0.28) 0%, rgba(22, 38, 67, 0.24) 55%, rgba(80, 118, 170, 0.16) 100%)",
+  Rain:
+    "linear-gradient(140deg, rgba(3, 11, 24, 0.42) 0%, rgba(10, 28, 54, 0.34) 55%, rgba(26, 92, 160, 0.18) 100%)",
+  Drizzle:
+    "linear-gradient(140deg, rgba(3, 11, 24, 0.4) 0%, rgba(10, 28, 54, 0.32) 55%, rgba(26, 92, 160, 0.16) 100%)",
+  Thunderstorm:
+    "linear-gradient(140deg, rgba(4, 5, 17, 0.52) 0%, rgba(19, 24, 51, 0.38) 55%, rgba(89, 66, 160, 0.18) 100%)",
+  Snow:
+    "linear-gradient(140deg, rgba(9, 18, 33, 0.26) 0%, rgba(22, 44, 78, 0.22) 55%, rgba(179, 218, 255, 0.16) 100%)",
+  Mist:
+    "linear-gradient(140deg, rgba(9, 15, 28, 0.38) 0%, rgba(22, 38, 67, 0.3) 55%, rgba(110, 127, 161, 0.16) 100%)",
+  default:
+    "linear-gradient(140deg, rgba(8, 18, 39, 0.24) 0%, rgba(15, 54, 104, 0.26) 55%, rgba(255, 184, 77, 0.1) 100%)",
 };
 
 const WEATHER_ICONS = {
-  "01d": "☀️",
-  "01n": "🌙",
-  "02d": "⛅",
-  "02n": "☁️",
-  "03d": "☁️",
-  "03n": "☁️",
-  "04d": "☁️",
-  "04n": "☁️",
-  "09d": "🌧️",
-  "09n": "🌧️",
-  "10d": "🌦️",
-  "10n": "🌧️",
-  "11d": "⛈️",
-  "11n": "⛈️",
-  "13d": "❄️",
-  "13n": "❄️",
-  "50d": "🌫️",
-  "50n": "🌫️",
+  "01d": "\u2600\uFE0F",
+  "01n": "\uD83C\uDF19",
+  "02d": "\u26C5",
+  "02n": "\u2601\uFE0F",
+  "03d": "\u2601\uFE0F",
+  "03n": "\u2601\uFE0F",
+  "04d": "\u2601\uFE0F",
+  "04n": "\u2601\uFE0F",
+  "09d": "\uD83C\uDF27\uFE0F",
+  "09n": "\uD83C\uDF27\uFE0F",
+  "10d": "\uD83C\uDF26\uFE0F",
+  "10n": "\uD83C\uDF27\uFE0F",
+  "11d": "\u26C8\uFE0F",
+  "11n": "\u26C8\uFE0F",
+  "13d": "\u2744\uFE0F",
+  "13n": "\u2744\uFE0F",
+  "50d": "\uD83C\uDF2B\uFE0F",
+  "50n": "\uD83C\uDF2B\uFE0F",
+};
+
+const UI_ICONS = {
+  fallbackWeather: "\uD83C\uDF24\uFE0F",
+  search: "\uD83D\uDD0D",
+  warning: "\u26A0\uFE0F",
+  humidity: "\uD83D\uDCA7",
+  wind: "\uD83D\uDCA8",
+  visibility: "\uD83D\uDC41\uFE0F",
+  pressure: "\uD83D\uDCCA",
 };
 
 const DATE_FORMATTER = new Intl.DateTimeFormat("en-GB", {
@@ -58,7 +76,7 @@ function StatCard({ icon, label, value }) {
 }
 
 function ForecastCard({ day }) {
-  const emoji = WEATHER_ICONS[day.icon] || "🌤️";
+  const emoji = WEATHER_ICONS[day.icon] || UI_ICONS.fallbackWeather;
 
   return (
     <div className="forecast-card">
@@ -133,17 +151,17 @@ export default function App() {
     }
   };
 
-  const gradient = weather
-    ? WEATHER_GRADIENTS[weather.weather_main] || WEATHER_GRADIENTS.default
-    : WEATHER_GRADIENTS.default;
-  const emoji = weather ? WEATHER_ICONS[weather.icon] || "🌤️" : "🌤️";
+  const weatherTint = weather
+    ? WEATHER_TINTS[weather.weather_main] || WEATHER_TINTS.default
+    : WEATHER_TINTS.default;
+  const emoji = weather ? WEATHER_ICONS[weather.icon] || UI_ICONS.fallbackWeather : UI_ICONS.fallbackWeather;
 
   const padTime = (value) => String(value).padStart(2, "0");
   const timeStr = `${padTime(time.getHours())}:${padTime(time.getMinutes())}:${padTime(time.getSeconds())}`;
   const dateStr = `${DATE_FORMATTER.format(time)} ${time.getFullYear()}`;
 
   return (
-    <div className="app" style={{ background: gradient }}>
+    <div className="app" style={{ "--weather-tint": weatherTint }}>
       <div className="blob blob-1" />
       <div className="blob blob-2" />
       <div className="blob blob-3" />
@@ -157,8 +175,8 @@ export default function App() {
             value={input}
             onChange={(event) => setInput(event.target.value)}
           />
-          <button className="search-btn" type="submit">
-            🔍
+          <button className="search-btn" type="submit" aria-label="Search city">
+            {UI_ICONS.search}
           </button>
         </form>
 
@@ -176,7 +194,7 @@ export default function App() {
 
         {error && !loading && (
           <div className="glass-card center error-card">
-            <span className="error-icon">⚠️</span>
+            <span className="error-icon">{UI_ICONS.warning}</span>
             <p className="error-text">{error}</p>
           </div>
         )}
@@ -202,10 +220,10 @@ export default function App() {
             </div>
 
             <div className="stats-grid">
-              <StatCard icon="💧" label="Humidity" value={`${weather.humidity}%`} />
-              <StatCard icon="💨" label="Wind" value={`${weather.wind_speed} m/s`} />
-              <StatCard icon="👁️" label="Visibility" value={`${weather.visibility} km`} />
-              <StatCard icon="📊" label="Pressure" value={`${weather.pressure} hPa`} />
+              <StatCard icon={UI_ICONS.humidity} label="Humidity" value={`${weather.humidity}%`} />
+              <StatCard icon={UI_ICONS.wind} label="Wind" value={`${weather.wind_speed} m/s`} />
+              <StatCard icon={UI_ICONS.visibility} label="Visibility" value={`${weather.visibility} km`} />
+              <StatCard icon={UI_ICONS.pressure} label="Pressure" value={`${weather.pressure} hPa`} />
             </div>
 
             {forecast.length > 0 && (
