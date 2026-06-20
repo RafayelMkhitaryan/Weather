@@ -49,10 +49,6 @@ body {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  /* background:
-    radial-gradient(circle at 13% 33%, rgba(255, 216, 139, 0.24), transparent 14%),
-    radial-gradient(circle at 74% 74%, rgba(24, 102, 189, 0.28), transparent 28%),
-    linear-gradient(180deg, rgba(1, 4, 13, 0.12) 0%, rgba(1, 4, 13, 0.38) 100%); */
 }
 
 #myVideo {
@@ -63,7 +59,6 @@ body {
   min-height: 100%;
   object-fit: cover;
   z-index: -9999;
-  /* width: auto; */
 }
 .container {
   width: min(760px, calc(100% - 32px));
@@ -123,9 +118,6 @@ body {
 }
 
 .glass-card {
-  /* background:
-    linear-gradient(135deg, rgba(18, 33, 73, 0.62), rgba(24, 48, 94, 0.36)),
-    rgba(8, 14, 28, 0.36); */
   backdrop-filter: blur(26px) saturate(1.35);
   -webkit-backdrop-filter: blur(26px) saturate(1.35);
   border: 1px solid rgba(146, 180, 255, 0.16);
@@ -346,9 +338,6 @@ body {
   flex-direction: column;
   justify-content: center;
   gap: 8px;
-  /* background:
-    linear-gradient(135deg, rgba(18, 33, 73, 0.54), rgba(16, 31, 62, 0.32)),
-    rgba(6, 12, 24, 0.34); */
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border: 1px solid rgba(146, 180, 255, 0.12);
@@ -363,9 +352,6 @@ body {
 .stat-card:hover {
   transform: translateY(-2px);
   border-color: rgba(188, 214, 255, 0.18);
-  /* background:
-    linear-gradient(135deg, rgba(22, 41, 88, 0.62), rgba(20, 39, 79, 0.38)),
-    rgba(7, 13, 27, 0.38); */
 }
 
 .stat-icon {
@@ -577,3 +563,139 @@ body {
     align-items: center;
   }
 }
+
+/* ── Map ── */
+.map-section { padding: 24px; }
+
+.map-hint {
+  font-size: 12px;
+  color: rgba(214, 226, 255, 0.38);
+  margin-bottom: 14px;
+  margin-top: -4px;
+  letter-spacing: 0.04em;
+}
+
+.map-container {
+  width: 100%;
+  height: 380px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(146, 180, 255, 0.12);
+}
+
+.map-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.map-marker-bubble {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(8, 14, 28, 0.72);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(146, 180, 255, 0.22);
+  border-radius: 20px;
+  padding: 6px 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+}
+
+.map-marker-emoji { font-size: 18px; }
+
+.map-marker-temp {
+  font-size: 16px;
+  font-weight: 700;
+  color: #f8fbff;
+  font-family: "Inter", sans-serif;
+}
+
+.map-marker-city {
+  font-size: 11px;
+  color: rgba(214, 226, 255, 0.6);
+  font-family: "Inter", sans-serif;
+  margin-top: 3px;
+  font-weight: 500;
+}
+
+.map-marker-pin {
+  width: 2px;
+  height: 10px;
+  background: rgba(146, 180, 255, 0.5);
+  border-radius: 2px;
+  margin-top: 2px;
+}
+
+.custom-popup .leaflet-popup-content-wrapper {
+  background: rgba(8, 14, 28, 0.88) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(146, 180, 255, 0.18) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
+  color: #f8fbff !important;
+}
+
+.custom-popup .leaflet-popup-tip {
+  background: rgba(8, 14, 28, 0.88) !important;
+}
+
+.custom-popup .leaflet-popup-close-button {
+  color: rgba(214, 226, 255, 0.5) !important;
+  font-size: 18px !important;
+}
+
+.map-popup { font-family: "Inter", sans-serif; min-width: 160px; }
+
+.popup-header {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(248, 251, 255, 0.9);
+  margin-bottom: 6px;
+}
+
+.popup-temp {
+  font-size: 36px;
+  font-weight: 200;
+  color: #f8fbff;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.popup-desc {
+  font-size: 13px;
+  color: rgba(214, 226, 255, 0.55);
+  margin-bottom: 10px;
+}
+
+.popup-stats {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+  color: rgba(214, 226, 255, 0.5);
+}
+
+.leaflet-container {
+  background: #02050d !important;
+  font-family: "Inter", sans-serif !important;
+}
+
+.leaflet-control-zoom a {
+  background: rgba(8, 14, 28, 0.72) !important;
+  border-color: rgba(146, 180, 255, 0.18) !important;
+  color: rgba(214, 226, 255, 0.8) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: rgba(14, 24, 48, 0.88) !important;
+}
+
+.leaflet-control-attribution {
+  background: rgba(2, 5, 13, 0.6) !important;
+  color: rgba(214, 226, 255, 0.3) !important;
+  font-size: 10px !important;
+}
+
+.leaflet-control-attribution a { color: rgba(214, 226, 255, 0.4) !important; }

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import "./App.css";
+import WeatherMap from "./weather_map";
 
 const WEATHER_TINTS = {
   Clear:
@@ -96,6 +97,20 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [time, setTime] = useState(new Date());
+  const [leafletReady, setLeafletReady] = useState(false);
+
+  // Load Leaflet dynamically
+  useEffect(() => {
+    if (window.L) { setLeafletReady(true); return; }
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+    document.head.appendChild(link);
+    const script = document.createElement("script");
+    script.src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+    script.onload = () => setLeafletReady(true);
+    document.head.appendChild(script);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
@@ -147,6 +162,10 @@ export default function App() {
       setInput("");
     }
   };
+
+  const handleMapCityChange = useCallback((newCity) => {
+    setCity(newCity);
+  }, []);
 
   const weatherTint = weather
     ? WEATHER_TINTS[weather.weather_main] || WEATHER_TINTS.default
@@ -260,6 +279,11 @@ export default function App() {
                 value={`${weather.pressure} hPa`}
               />
             </div>
+
+            {/* Map */}
+            {leafletReady && (
+              <WeatherMap weather={weather} onCityChange={handleMapCityChange} />
+            )}
 
             {forecast.length > 0 && (
               <div className="glass-card forecast-section">
