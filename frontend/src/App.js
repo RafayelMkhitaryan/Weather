@@ -125,6 +125,8 @@ export default function App() {
       const [weatherResponse, forecastResponse] = await Promise.all([
         fetch(`/weather/current?city=${encodeURIComponent(cityName)}`),
         fetch(`/weather/forecast?city=${encodeURIComponent(cityName)}`),
+        // fetch(`/api/weather/current?city=${encodeURIComponent(cityName)}`),
+        // fetch(`/api/weather/forecast?city=${encodeURIComponent(cityName)}`),
       ]);
 
       if (!weatherResponse.ok) {

@@ -432,17 +432,20 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex: 0 0 auto;
 }
 
 .temp-max {
   font-size: 16px;
   font-weight: 600;
   color: rgba(248, 251, 255, 0.96);
+  white-space: nowrap;
 }
 
 .temp-min {
   font-size: 14px;
   color: rgba(214, 226, 255, 0.5);
+  white-space: nowrap;
 }
 
 .center {
@@ -535,8 +538,38 @@ body {
 
   .forecast-card {
     display: grid;
-    grid-template-columns: auto auto 1fr auto;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "day day temps"
+      "icon desc temps";
     align-items: center;
+    column-gap: 12px;
+    row-gap: 8px;
+    padding: 14px 16px;
+  }
+
+  .forecast-day {
+    grid-area: day;
+    min-width: 0;
+    font-size: 13px;
+  }
+
+  .forecast-icon {
+    grid-area: icon;
+    font-size: 24px;
+  }
+
+  .forecast-desc {
+    grid-area: desc;
+    min-width: 0;
+    line-height: 1.35;
+  }
+
+  .forecast-temps {
+    grid-area: temps;
+    justify-self: end;
+    align-self: center;
+    gap: 6px;
   }
 }
 
@@ -561,6 +594,25 @@ body {
 
   .main-top {
     align-items: center;
+  }
+
+  .forecast-card {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "day temps"
+      "icon temps"
+      "desc temps";
+    align-items: start;
+  }
+
+  .forecast-icon {
+    align-self: start;
+  }
+
+  .forecast-temps {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
   }
 }
 
